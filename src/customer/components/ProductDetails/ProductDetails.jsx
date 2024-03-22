@@ -22,8 +22,10 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-import {Rating,Button} from "@mui/material"
-
+import { Rating, Button, Grid, LinearProgress, Box } from "@mui/material";
+import ProdcutReviewCard from "./ProdcutReviewCard";
+import {mens_kurta} from "../../../Data/man.js"
+import HomeSectionCard from "../HomeSectionCard/HomeSectionCard.jsx"
 const product = {
   name: "Basic Tee 6-Pack",
   price: "$192",
@@ -87,13 +89,10 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white lg:px-20">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
+          <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
@@ -170,13 +169,15 @@ export default function ProductDetails() {
 
               {/* Reviews */}
               <div className="mt-6">
-              <div className="flex items-center space-x-50">
-              <Rating name="read-only" value={4.8} readOnly />
-              <p className="opacity-50 text-sm">Có 4530 người đã đánh giá</p>
-              <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">Có 400 người đã xem</p>
-
-              </div>
-             
+                <div className="flex items-center space-x-50">
+                  <Rating name="read-only" value={4.8} readOnly />
+                  <p className="opacity-50 text-sm">
+                    Có 4530 người đã đánh giá
+                  </p>
+                  <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    Có 400 người đã xem
+                  </p>
+                </div>
               </div>
 
               <form className="mt-10">
@@ -184,7 +185,6 @@ export default function ProductDetails() {
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
-               
                   </div>
 
                   <RadioGroup
@@ -257,7 +257,9 @@ export default function ProductDetails() {
                 </div>
 
                 <Button
-                   >
+                  variant="contained"
+                  sx={{ px: "2rem", py: "1rem", bgcolor: "#9155fd" }}
+                >
                   Thêm Vào giỏ hàng
                 </Button>
               </form>
@@ -299,6 +301,89 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+        {/* rating and reviews */}
+        <section>
+          <h1 className="font-semibold text-lg pb-4">Recent Review & Rating</h1>
+          <div className="border p-5">
+            <Grid container spacing={7}>
+              <Grid item xs={7}>
+                <div className="space-y-0">
+                  {[1, 1, 1, 1].map((item) => (
+                    <ProdcutReviewCard />
+                  ))}
+                </div>
+              </Grid>
+              <Grid item xs={5}>
+                <h1 className="text-xl font-semibold pb-2">Product Rating</h1>
+                <div className="flex items-center space-x-3 ">
+                  <Rating value={4.6} readOnly />
+                  <p className="opacity-60 ">123213 Rating</p>
+                </div>
+                <Box className="mt-5">
+                  <Grid container alignItems="center" gap={2}>
+                    <Grid item xs={2}>
+                      <p>Excellent</p>
+                    </Grid>
+                    <Grid item xs={7}>
+                      <LinearProgress
+                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
+                        variant="determinate"
+                        value={90}
+                        color="success"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems="center" gap={2}>
+                    <Grid item xs={2}>
+                      <p>Good</p>
+                    </Grid>
+                    <Grid item xs={7}>
+                      <LinearProgress
+                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
+                        variant="determinate"
+                        value={70}
+                        color="primary"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems="center" gap={2}>
+                    <Grid item xs={2}>
+                      <p>Avarage</p>
+                    </Grid>
+                    <Grid item xs={7}>
+                      <LinearProgress
+                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
+                        variant="determinate"
+                        value={50}
+                        color="warning"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems="center" gap={2}>
+                    <Grid item xs={2}>
+                      <p>Poor</p>
+                    </Grid>
+                    <Grid item xs={7}>
+                      <LinearProgress
+                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
+                        variant="determinate"
+                        value={20}
+                        color="error"
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            </Grid>
+          </div>
+        </section>
+        {/* similer products */}
+        <section className="pt-10">
+          <h1 className="py-5 text-xl font-bold">Similer Products</h1>
+          <div className="flex flex-wrap space-y-5">
+           {mens_kurta.map((item)=><HomeSectionCard product={item} />)}
           </div>
         </section>
       </div>

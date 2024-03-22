@@ -5,6 +5,8 @@ import HomePage from './customer/pages/HomePage.jsx';
 import Footer from './customer/components/Footer/Footer.jsx';
 import Product from './customer/components/Product/Product.jsx';
 import ProductDetails from './customer/components/ProductDetails/ProductDetails.jsx';
+import Cart from './customer/components/Cart/Cart.jsx';
+import Checkout from './customer/components/Checkout/Checkout.jsx';
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
     <div><Navigation/>
     {/* <div><HomePage/></div> */}
     {/* <Product/> */}
-    <ProductDetails/>
+    {/* <ProductDetails/> */}
+    {/* <Cart/> */}
+    <Checkout/>
     </div>
     
     <div><Footer/></div>
