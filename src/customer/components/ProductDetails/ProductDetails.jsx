@@ -22,7 +22,7 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-import {Rating} from "@mui/material"
+import {Rating,Button} from "@mui/material"
 
 const product = {
   name: "Basic Tee 6-Pack",
