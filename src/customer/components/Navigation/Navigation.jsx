@@ -16,7 +16,8 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { navigation } from './navigationData';
-
+import { useNavigate } from 'react-router-dom';
+import {MenuItem} from '@mui/material'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -24,7 +25,16 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
+ const navigatite = useNavigate();
+ const  handleCategoryClick = async (category,section,item,close) =>
+ {
+  await navigatite(`/${category.id}/${section.id}/${item.id}`);
+   // Kiểm tra close có phải là hàm không trước khi gọi
+   if (typeof close === 'function') {
+    close(); // Gọi hàm close nếu nó là một hàm
+  }
 
+ }
   return (
     <div className="bg-white relative z-10  " >
       {/* Mobile menu */}
@@ -267,9 +277,10 @@ export default function Navigation() {
                                           >
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-gray-800">
+                                                <p  className="hover:text-gray-800" onClick={()=>
+                                                handleCategoryClick(category,section,item)}>
                                                   {item.name}
-                                                </a>
+                                                </p>
                                               </li>
                                             ))}
                                           </ul>
@@ -332,10 +343,11 @@ export default function Navigation() {
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
+                   
+                    <MenuItem onClick={() => navigatite("/account/order")}> <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
-                    />
+                    /> </MenuItem>
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
